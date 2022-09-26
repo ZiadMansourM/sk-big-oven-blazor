@@ -1,0 +1,39 @@
+﻿@page "/register"
+@inject HttpClient http
+@inject NavigationManager navManager
+
+<PageTitle>Register</PageTitle>
+
+<template x-for="(msg, index) in errMsgs" :key="index">
+    <div class="alert alert-danger-custom shadow p-3 mb-4 bg-body-custom rounded" role="alert">
+        <a x-text="msg" class="btn-alert-cls link" data-bs-toggle="modal" data-bs-target="#recipePolcy">
+        </a>
+    </div>
+</template>
+<div class="form-signin">
+    <EditForm Model="@user" OnValidSubmit="@RegisterUser">
+        <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
+        <div class="form-floating pb-2">
+            <InputText @bind-Value="user.Username" type="text" class="form-control" id="floatingInputRegister" placeholder="Enter username" required />
+            <label for="floatingInputRegister">Username</label>
+        </div>
+        <div class="form-floating pb-2">
+            <InputText @bind-Value="user.Password" type="password" class="form-control" id="floatingPasswordSignin" placeholder="Password" required />
+            <label for="floatingPasswordSignin">Password</label>
+        </div>
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Sign up</button>
+    </EditForm>
+</div>
+
+@code {
+    private Models.UserDTO user = new();
+
+    private async Task RegisterUser()
+    {
+        var request = await http.PostAsJsonAsync("register", user);
+        Console.WriteLine("Hello working...");
+        Console.WriteLine(user.Username);
+        Console.WriteLine(user.Password);
+        navManager.NavigateTo("/login");
+    }
+}
