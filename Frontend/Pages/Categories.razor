@@ -36,7 +36,7 @@
             {
                 <tr class="d-flex">
                     <th class="col-1" scope="row">@i</th>
-                    <td class="col-6 col-md-8 col-lg-8 ellipses"><a x-on:click="initActiveCategory(category)" data-bs-toggle="modal" data-bs-target="#detailCategoryModel">@cat.Name</a></td>
+                    <td class="col-6 col-md-8 col-lg-8 ellipses"><a @onclick="() => { _activeCategory.Id = cat.Id; _activeCategory.Name = cat.Name; }" data-bs-toggle="modal" data-bs-target="#detailCategoryModel">@cat.Name</a></td>
                     <td class="col-5 col-md-3 col-lg-3">
                         <button @onclick="() => { _activeCategory.Id = cat.Id; _activeCategory.Name = cat.Name; }" class="btn btn-link link" data-bs-toggle="modal" data-bs-target="#updateCategoryModel">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -54,6 +54,31 @@
             }
         </tbody>
     </table>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal fade custom-model" id="detailCategoryModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailCategoryModel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailCategoryModel">Category Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInputDrguid" value="@_activeCategory.Id" readonly>
+                    <label for="floatingInputDrguid">Category Guid</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInputDrname" value="@_activeCategory.Name" readonly>
+                    <label for="floatingInputDrname">Category Name</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary fw-bold" data-bs-dismiss="modal">Great</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Create Modal -->
